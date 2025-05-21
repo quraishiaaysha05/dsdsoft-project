@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 
 
-class AsyncScreen extends StatelessWidget {
-  const AsyncScreen({super.key});
+class SyncScreen extends StatelessWidget {
+  const SyncScreen({super.key});
 
   @override
   Widget build(BuildContext context) {

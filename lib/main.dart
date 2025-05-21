@@ -1,11 +1,11 @@
 // Aaysha
-// Customer 
+// Customer ✅
 // Product 
 // Stock Report 
 // Sales Report 
 // Item Sales
 
-import 'package:dsdsoft_project/home/home_screen.dart';
+import 'package:dsdsoft_project/screens/home/home_screen.dart';
 import 'package:flutter/material.dart';
 
 void main() {
