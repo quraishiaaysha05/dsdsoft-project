@@ -1,16 +1,20 @@
 import 'package:flutter/material.dart';
-
 import '../theme/constants.dart';
 
 class SearchField extends StatelessWidget {
   final String hintText;
-  const SearchField({super.key, required this.hintText });
+  final ValueChanged<String> onChanged;
+
+  const SearchField({
+    super.key,
+    required this.hintText,
+    required this.onChanged,
+  });
 
   @override
   Widget build(BuildContext context) {
     return TextField(
       cursorColor: black,
-      
       decoration: InputDecoration(
         prefixIcon: Icon(Icons.search, size: 24, color: primaryColor),
         hintText: 'Search $hintText',
@@ -33,7 +37,7 @@ class SearchField extends StatelessWidget {
         isDense: true,
         contentPadding: EdgeInsets.symmetric(horizontal: 10, vertical: 12),
       ),
-      onChanged: (value) {},
+      onChanged: onChanged,
     );
   }
 }

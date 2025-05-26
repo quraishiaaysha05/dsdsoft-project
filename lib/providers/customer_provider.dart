@@ -1,37 +1,52 @@
-// lib/providers/customer_provider.dart
-
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:hive/hive.dart';
+
 import '../models/customer_model.dart';
+import 'search_provider.dart'; // ✅ needed for filtering
 
-// Define a StateNotifier to manage the list of customers
 class CustomerNotifier extends StateNotifier<List<Customer>> {
-  CustomerNotifier() : super([]);
+  final Box<Customer> _customerBox;
 
-  // Add a new customer
+  CustomerNotifier(this._customerBox) : super(_customerBox.values.toList());
+
   void addCustomer(Customer customer) {
-    state = [...state, customer];
+    _customerBox.add(customer);
+    state = _customerBox.values.toList();
   }
 
-  // Update a customer by index
   void updateCustomer(int index, Customer updatedCustomer) {
-    final List<Customer> newList = [...state];
-    if (index >= 0 && index < newList.length) {
-      newList[index] = updatedCustomer;
-      state = newList;
+    if (index >= 0 && index < _customerBox.length) {
+      final key = _customerBox.keyAt(index);
+      _customerBox.put(key, updatedCustomer);
+      state = _customerBox.values.toList();
     }
   }
 
-  // Remove a customer by index
   void removeCustomer(int index) {
-    final List<Customer> newList = [...state];
-    if (index >= 0 && index < newList.length) {
-      newList.removeAt(index);
-      state = newList;
+    if (index >= 0 && index < _customerBox.length) {
+      final key = _customerBox.keyAt(index);
+      _customerBox.delete(key);
+      state = _customerBox.values.toList();
     }
   }
 }
 
-// Create the provider
+final customerBoxProvider = Provider<Box<Customer>>((ref) {
+  throw UnimplementedError();
+});
+
 final customerProvider = StateNotifierProvider<CustomerNotifier, List<Customer>>((ref) {
-  return CustomerNotifier();
+  final box = ref.watch(customerBoxProvider);
+  return CustomerNotifier(box);
+});
+
+/// ✅ Filtered provider using search term
+final filteredCustomerProvider = Provider<List<Customer>>((ref) {
+  final customers = ref.watch(customerProvider);
+  final search = ref.watch(searchTermProvider).toLowerCase();
+
+  return customers.where((customer) {
+    return customer.name.toLowerCase().contains(search) ||
+           customer.phone.toLowerCase().contains(search);
+  }).toList();
 });

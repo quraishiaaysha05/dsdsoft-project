@@ -6,7 +6,8 @@ import '../../providers/stock_provider.dart';
 import '../../theme/constants.dart';
 
 class StockReportScreen extends ConsumerWidget {
-  const StockReportScreen({super.key});
+   StockReportScreen({super.key});
+
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
@@ -47,8 +48,9 @@ class StockReportScreen extends ConsumerWidget {
                     child: Row(
                       children: [
                         Expanded(child: Text(item.product, style: stockList)),
-                        Expanded(child: Text(item.barcode, style: stockList)),
-                        Text(item.quantity.toString(), style: stockList),
+Expanded(child: Text(item.barcode, style: stockList)),
+Text(item.quantity.toString(), style: stockList),
+
                       ],
                     ),
                   );

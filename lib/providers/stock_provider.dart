@@ -1,12 +1,22 @@
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import '../models/stock_report_item.dart';
 
-// Replace static list with this provider
-final stockItemsProvider = Provider<List<StockItem>>((ref) {
+class StockItem {
+  final String product;
+  final String barcode;
+  final int quantity;
+
+  StockItem({
+    required this.product,
+    required this.barcode,
+    required this.quantity,
+  });
+}
+
+// This can be StateNotifier or just a simple Provider returning list
+final stockItemsProvider = StateProvider<List<StockItem>>((ref) {
+  // Your initial stock list here, or empty
   return [
-    StockItem(product: "Arjoon Ajwa Seeds Power 150 gms", barcode: "6281106253680", quantity: 10),
-    StockItem(product: "Arjoon Ajwa Seeds Power 200 gms", barcode: "6281106253681", quantity: 5),
-    StockItem(product: "Arjoon Ajwa Seeds Power 100 gms", barcode: "6281106253682", quantity: 0),
-    // Add more items as needed
+    StockItem(product: 'Milk 1L', barcode: '1234567890123', quantity: 10),
+    StockItem(product: 'Bread Loaf', barcode: '2345678901234', quantity: 5),
   ];
 });

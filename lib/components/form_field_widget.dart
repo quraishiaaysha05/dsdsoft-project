@@ -2,9 +2,6 @@ import 'package:flutter/material.dart';
 
 import '../theme/constants.dart';
 
-import 'package:flutter/material.dart';
-
-import '../theme/constants.dart';
 
 Widget formFieldWidget(
   String fieldName,
