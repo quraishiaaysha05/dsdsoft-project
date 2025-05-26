@@ -7,19 +7,24 @@ Color softGray = Color(0xFFE0E0E0);
 Color white = Colors.white;
 Color black = Colors.black;
 
-TextStyle titleText = GoogleFonts.poppins(
+TextStyle mainTitleText = GoogleFonts.poppins(
   color: primaryColor,
   fontWeight: FontWeight.bold,
   fontSize: 25,
   
 );
 
-TextStyle subtitleText = GoogleFonts.poppins(
+TextStyle titleText = GoogleFonts.poppins(
   color: primaryColor,
   fontWeight: FontWeight.bold,
   fontSize: 17,
 );
 
+TextStyle subtitleText = GoogleFonts.poppins(
+  color: primaryColor,
+  fontWeight: FontWeight.bold,
+  fontSize: 14,
+);
 
 
 TextStyle bodyText = GoogleFonts.poppins(
@@ -29,13 +34,25 @@ TextStyle bodyText = GoogleFonts.poppins(
 );
 
 
-TextStyle indexText = GoogleFonts.poppins(
-  color: primaryColor,
-  fontSize: 14,
-  fontWeight: FontWeight.w600
-);
+
 
 TextStyle formTitleText = GoogleFonts.poppins(
-  color: primaryColor,
-  fontSize: 16,
+  color: black,
+  fontSize: 15,
+);
+
+TextStyle stockList = GoogleFonts.poppins(
+  color: Colors.grey[700],
+  fontSize: 12.5,
+);
+
+TextStyle mainButtonStyle = GoogleFonts.poppins(
+  color: white,
+  fontSize: 17,
+);
+
+
+TextStyle secondaryButtonStyle = GoogleFonts.poppins(
+  color: white,
+  fontSize: 15,
 );

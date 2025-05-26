@@ -1,73 +1,79 @@
-import 'package:dsdsoft_project/components/main_button.dart';
 import 'package:dsdsoft_project/components/secondary_button.dart';
 import 'package:dsdsoft_project/theme/constants.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
 
-class CustomerDetailScreen extends StatefulWidget {
+import '../../components/appbar.dart';
+import '../../providers/customer_provider.dart';
+
+class CustomerDetailScreen extends ConsumerStatefulWidget {
   final int customerIndex;
-  final String name;
-  final String location;
-  final String phone;
 
-  const CustomerDetailScreen({
-    super.key,
-    required this.customerIndex,
-    required this.name,
-    required this.location,
-    required this.phone,
-  });
+  const CustomerDetailScreen({super.key, required this.customerIndex});
 
   @override
-  State<CustomerDetailScreen> createState() => _CustomerDetailScreenState();
+  ConsumerState<CustomerDetailScreen> createState() => _CustomerDetailScreenState();
 }
 
-class _CustomerDetailScreenState extends State<CustomerDetailScreen> {
+class _CustomerDetailScreenState extends ConsumerState<CustomerDetailScreen> {
+  late int currentIndex;
+
+  @override
+  void initState() {
+    super.initState();
+    currentIndex = widget.customerIndex;
+  }
+
+  void _goPrev() {
+    if (currentIndex > 0) {
+      setState(() {
+        currentIndex--;
+      });
+    }
+  }
+
+  void _goNext(List customers) {
+    if (currentIndex < customers.length - 1) {
+      setState(() {
+        currentIndex++;
+      });
+    }
+  }
+
   @override
   Widget build(BuildContext context) {
+    final customers = ref.watch(customerProvider);
+
+    // Handle case where customer list might be empty or index invalid
+    if (customers.isEmpty || currentIndex >= customers.length) {
+      return Scaffold(
+        appBar: screensAppBar(context: context, title: 'Customer Details'),
+        body: Center(child: Text('No customer data available')),
+      );
+    }
+
+    final customer = customers[currentIndex];
+
     return Scaffold(
       backgroundColor: white,
-      appBar: AppBar(
-        automaticallyImplyLeading: false,
-        backgroundColor: white,
-        title: Row(
-          children: [
-            InkWell(
-              onTap: () {
-                Navigator.pop(context);
-              },
-              child: CircleAvatar(
-                backgroundColor: Colors.grey[300],
-                radius: 20,
-                child: Icon(
-                  Icons.arrow_back,
-                  color: primaryColor,
-                  size: 20,
-                ),
-              ),
-            ),
-            SizedBox(width: 18),
-            Text(
-              'Customer Details',
-              style: titleText,
-            ),
-          ],
-        ),
+      appBar: screensAppBar(
+        context: context,
+        title: 'Customer Details',
       ),
       body: Padding(
         padding: const EdgeInsets.all(15),
         child: Column(
-          // mainAxisAlignment: MainAxisAlignment.center,
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
             SizedBox(height: 60),
             Text(
-              '#${widget.customerIndex + 1}',
-              style: subtitleText,
+              '#${currentIndex + 1}',
+              style: titleText,
             ),
             SizedBox(height: 50),
             Text(
-              widget.name,
-              style: titleText,
+              customer.name,
+              style: mainTitleText,
             ),
             SizedBox(height: 12),
             Row(
@@ -77,10 +83,9 @@ class _CustomerDetailScreenState extends State<CustomerDetailScreen> {
                   color: primaryColor,
                 ),
                 Text(
-                  ' ${widget.location}',
-                  style: formTitleText.copyWith(
+                  ' ${customer.location}',
+                  style: titleText.copyWith(
                     color: secondaryColor,
-                    fontWeight: FontWeight.bold,
                   ),
                 ),
               ],
@@ -93,35 +98,42 @@ class _CustomerDetailScreenState extends State<CustomerDetailScreen> {
                   color: primaryColor,
                 ),
                 Text(
-                  ' +91 ${widget.phone}',
+                  ' +91  ${customer.phone}',
                   style: formTitleText.copyWith(
                     color: secondaryColor,
-                    fontWeight: FontWeight.bold,
                   ),
                 ),
               ],
             ),
             SizedBox(height: 65),
             Text(
-              'VAT Number: ',
-              style: indexText.copyWith(color: primaryColor),
+              'VAT Number: ', // You can add real data later
+              style: subtitleText,
             ),
             SizedBox(height: 5),
             Text(
               'Mode of Payment: ',
-              style: indexText.copyWith(color: primaryColor),
+              style: subtitleText,
             ),
             SizedBox(height: 5),
             Text(
               'Credit Limit: ',
-              style: indexText.copyWith(color: primaryColor),
+              style: subtitleText,
             ),
             SizedBox(height: 40),
             Row(
               children: [
-                SecondaryButton(text: 'Prev'),
+                SecondaryButton(
+                  text: 'Prev',
+                  onTap: currentIndex > 0 ? _goPrev : null,
+                ),
                 SizedBox(width: 10),
-                SecondaryButton(text: 'Next'),
+                SecondaryButton(
+                  text: 'Next',
+                  onTap: currentIndex < customers.length - 1
+                      ? () => _goNext(customers)
+                      : null,
+                ),
               ],
             ),
             SizedBox(height: 15),

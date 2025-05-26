@@ -1,15 +1,20 @@
 // Aaysha
 // Customer ✅
-// Product 
+// Product ✅
 // Stock Report 
 // Sales Report 
 // Item Sales
 
+
+
 import 'package:dsdsoft_project/screens/home/home_screen.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
 
 void main() {
-  runApp(const MyApp());
+  runApp( ProviderScope( 
+      child: MyApp(),
+    ),);
 }
 
 class MyApp extends StatelessWidget {

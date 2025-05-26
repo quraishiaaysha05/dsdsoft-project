@@ -1,11 +1,11 @@
 class Customer {
   final String name;
-  final String location;
   final String phone;
+  final String location;
 
   Customer({
     required this.name,
-    required this.location,
     required this.phone,
+    required this.location,
   });
 }

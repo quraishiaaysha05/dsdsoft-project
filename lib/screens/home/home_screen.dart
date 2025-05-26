@@ -1,12 +1,12 @@
 import 'package:dsdsoft_project/screens/sync_screen.dart';
 import 'package:dsdsoft_project/screens/customer/customer_screen.dart';
-import 'package:dsdsoft_project/screens/item_sales_screen.dart';
+import 'package:dsdsoft_project/screens/item_sales.dart/item_sales_screen.dart';
 import 'package:dsdsoft_project/screens/order_screen.dart';
 import 'package:dsdsoft_project/screens/payment_screen.dart';
 import 'package:dsdsoft_project/screens/product/product_screen.dart';
 import 'package:dsdsoft_project/screens/return_screen.dart';
-import 'package:dsdsoft_project/screens/sales_report_screen.dart';
-import 'package:dsdsoft_project/screens/stock_report_screen.dart';
+import 'package:dsdsoft_project/screens/sales_report/sales_report_screen.dart';
+import 'package:dsdsoft_project/screens/stock_report.dart/stock_report_screen.dart';
 import 'package:dsdsoft_project/theme/constants.dart';
 import 'package:flutter/material.dart';
 
@@ -48,9 +48,9 @@ class _HomeScreenState extends State<HomeScreen> {
                     children: [
                       Text(
                         'Your Business Hub',
-                        style: titleText,
+                        style: mainTitleText,
                       ),
-                      Icon(Icons.more_vert, size: 28),
+                      Icon(Icons.more_vert, size: 28, color: primaryColor,),
                     ],
                   ),
                 ),
@@ -89,7 +89,7 @@ class _HomeScreenState extends State<HomeScreen> {
                               ),
                               Text(
                                 _gridItems[index][1],
-                                style: titleText,
+                                style: mainTitleText,
                                 textAlign: TextAlign.center,
                                 overflow: TextOverflow.clip,
                               ),

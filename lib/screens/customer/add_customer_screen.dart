@@ -1,23 +1,32 @@
-import 'package:dsdsoft_project/components/main_button.dart';
-import 'package:dsdsoft_project/screens/customer/form_field_widget.dart';
-import 'package:dsdsoft_project/screens/home/home_screen.dart';
 import 'package:flutter/material.dart';
-
+import 'package:flutter_riverpod/flutter_riverpod.dart';
+import '../../components/main_button.dart';
+import '../../components/form_field_widget.dart';
+import '../../models/customer_model.dart';
+import '../../providers/customer_provider.dart';
 import '../../theme/constants.dart';
 
-class AddCustomerScreen extends StatefulWidget {
+class AddCustomerScreen extends ConsumerStatefulWidget {
   const AddCustomerScreen({super.key});
 
   @override
-  State<AddCustomerScreen> createState() => _AddCustomerScreenState();
+  ConsumerState<AddCustomerScreen> createState() => _AddCustomerScreenState();
 }
 
-class _AddCustomerScreenState extends State<AddCustomerScreen> {
+class _AddCustomerScreenState extends ConsumerState<AddCustomerScreen> {
+  final nameController = TextEditingController();
+  final addressController = TextEditingController();
+  final phoneController = TextEditingController();
+  final vatController = TextEditingController();
+  final modeController = TextEditingController();
+  final creditLimitController = TextEditingController();
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: white,
       appBar: AppBar(
+        scrolledUnderElevation: 0,
         backgroundColor: white,
         automaticallyImplyLeading: false,
         title: Padding(
@@ -26,67 +35,70 @@ class _AddCustomerScreenState extends State<AddCustomerScreen> {
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
               InkWell(
-                onTap: () => Navigator.pushReplacement(
-                    context, MaterialPageRoute(builder: (_) => HomeScreen())),
+                onTap: () => Navigator.pop(context),
                 child: CircleAvatar(
                   radius: 20,
                   backgroundColor: Colors.grey[300],
-                  child: Icon(
-                    Icons.home,
-                    color: primaryColor,
-                  ),
+                  child: Icon(Icons.arrow_back, color: primaryColor),
                 ),
               ),
-              Text(
-                'Add Customer',
-                style: titleText,
-              ),
-              InkWell(
-                onTap: () {
-                  Navigator.pop(context); // Go back when tapped
-                },
-                child: CircleAvatar(
-                  backgroundColor: Colors.grey[300],
-                  radius: 20,
-                  child: Icon(
-                    Icons.arrow_back,
-                    color: primaryColor,
-                    size: 20,
-                  ),
-                ),
-              ),
+              Text('Add Customer', style: mainTitleText),
+              SizedBox(width: 40),
             ],
           ),
         ),
       ),
-      body: SafeArea(
-        child: Padding(
-          padding: const EdgeInsets.all(15),
-          child: SingleChildScrollView(
-            child: Column(
+      body: SingleChildScrollView(
+        padding: const EdgeInsets.all(15),
+        child: Column(
+          children: [
+            const SizedBox(height: 20),
+            formFieldWidget('Name', 'Customer Name',
+                controller: nameController),
+            formFieldWidget('Address', 'Customer Address',
+                controller: addressController),
+            formFieldWidget('Contact', 'XXXXX XXXXX',
+                keyboardType: TextInputType.phone,
+                prefixText: '+91 ',
+                controller: phoneController),
+            formFieldWidget('VAT No', 'Not Available',
+                controller: vatController),
+            Row(
               children: [
-                SizedBox(height: 20),
-                FormFieldWidget('Name', 'Customer Name'),
-                FormFieldWidget('Address', 'Customer Address'),
-                FormFieldWidget(
-                  'Contact',
-                  'XXXXX XXXXX',
-                  keyboardType: TextInputType.phone,
-                  prefixText: '+91 ',
+                Expanded(
+                    child: formFieldWidget('Mode', 'Cash',
+                        controller: modeController)),
+                SizedBox(width: 7),
+                Expanded(
+                  child: formFieldWidget('Credit Limit', 'XXXX',
+                      controller: creditLimitController),
                 ),
-                FormFieldWidget('VAT No', 'Not Available'),
-                Row(
-                  children: [
-                    Expanded(child: FormFieldWidget('Mode', 'Cash')),
-                    SizedBox(width: 7),
-                    Expanded(child: FormFieldWidget('Credit Limit', 'XXXX')),
-                  ],
-                ),
-                SizedBox(height: 10),
-                MainButton(text: 'Submit'),
               ],
             ),
-          ),
+            const SizedBox(height: 10),
+            MainButton(
+              text: 'Submit',
+              onTap: () {
+                if (nameController.text.isEmpty ||
+                    addressController.text.isEmpty ||
+                    phoneController.text.isEmpty) {
+                  ScaffoldMessenger.of(context).showSnackBar(SnackBar(
+                    content: Text("Please fill all required fields."),
+                    backgroundColor: Colors.red,
+                  ));
+                  return;
+                }
+
+                ref.read(customerProvider.notifier).addCustomer(Customer(
+                      name: nameController.text,
+                      location: addressController.text,
+                      phone: phoneController.text,
+                    ));
+
+                Navigator.pop(context);
+              },
+            ),
+          ],
         ),
       ),
     );

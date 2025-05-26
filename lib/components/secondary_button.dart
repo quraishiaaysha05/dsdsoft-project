@@ -3,19 +3,28 @@ import 'package:flutter/material.dart';
 
 class SecondaryButton extends StatelessWidget {
   final String text;
-  const SecondaryButton({super.key, required this.text});
+  final VoidCallback? onTap;  // Add onTap callback
+
+  const SecondaryButton({
+    super.key,
+    required this.text,
+    this.onTap,  // optional onTap
+  });
 
   @override
   Widget build(BuildContext context) {
-    return Container(
-      padding: EdgeInsets.symmetric(horizontal: 35, vertical: 8),
-      decoration: BoxDecoration(
-        borderRadius: BorderRadius.circular(27),
-        color: primaryColor,
-      ),
-      child: Text(
-        text,
-        style: indexText.copyWith(color: white),
+    return GestureDetector(
+      onTap: onTap,  // handle taps here
+      child: Container(
+        padding:  EdgeInsets.symmetric(horizontal: 30, vertical: 8),
+        decoration: BoxDecoration(
+          borderRadius: BorderRadius.circular(27),
+          color: primaryColor,
+        ),
+        child: Text(
+          text,
+          style: secondaryButtonStyle,
+        ),
       ),
     );
   }
