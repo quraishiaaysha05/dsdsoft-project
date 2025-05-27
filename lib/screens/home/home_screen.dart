@@ -1,10 +1,10 @@
-import 'package:dsdsoft_project/screens/sync_screen.dart';
+import 'package:dsdsoft_project/screens/order/orders_page.dart';
+import 'package:dsdsoft_project/screens/payment/payment_page.dart';
+import 'package:dsdsoft_project/screens/return/return_item_page.dart';
+import 'package:dsdsoft_project/screens/sync/sync_data_page.dart';
 import 'package:dsdsoft_project/screens/customer/customer_screen.dart';
-import 'package:dsdsoft_project/screens/item_sales.dart/item_sales_screen.dart';
-import 'package:dsdsoft_project/screens/order_screen.dart';
-import 'package:dsdsoft_project/screens/payment_screen.dart';
+import 'package:dsdsoft_project/screens/item_sales/item_sales_screen.dart';
 import 'package:dsdsoft_project/screens/product/product_screen.dart';
-import 'package:dsdsoft_project/screens/return_screen.dart';
 import 'package:dsdsoft_project/screens/sales_report/sales_report_screen.dart';
 import 'package:dsdsoft_project/screens/stock_report.dart/stock_report_screen.dart';
 import 'package:dsdsoft_project/theme/constants.dart';
@@ -19,12 +19,12 @@ class HomeScreen extends StatefulWidget {
 
 class _HomeScreenState extends State<HomeScreen> {
   final List _gridItems = [
-    ['order.png', 'Order', OrderScreen()],
-    ['payment1.png', 'Payment', PaymentScreen()],
-    ['return2.png', 'Return', ReturnScreen()],
+    ['order.png', 'Order', OrdersPage()],
+    ['payment1.png', 'Payment', PaymentPage()],
+    ['return2.png', 'Return', ReturnItemPage()],
     ['product1.png', 'Product', ProductScreen()],
     ['customer1.png', 'Customer', CustomerScreen()],
-    ['sync1.png', 'Sync', SyncScreen()],
+    ['sync1.png', 'Sync', SyncDataPage()],
     ['stock_report2.png', 'Stock Report', StockReportScreen()],
     ['sales_report.png', 'Sales Report', SalesReportScreen()],
     ['item_sales.png', 'Item Sales', ItemSalesScreen()],
@@ -37,12 +37,12 @@ class _HomeScreenState extends State<HomeScreen> {
       body: SafeArea(
         child: SingleChildScrollView(
           child: Padding(
-            padding: const EdgeInsets.symmetric(horizontal: 18),
+            padding:  EdgeInsets.symmetric(horizontal: 18),
             child: Column(
               children: [
                 SizedBox(height: 15),
                 Padding(
-                  padding: const EdgeInsets.symmetric(vertical: 25),
+                  padding:  EdgeInsets.symmetric(vertical: 25),
                   child: Row(
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     children: [
@@ -50,7 +50,11 @@ class _HomeScreenState extends State<HomeScreen> {
                         'Your Business Hub',
                         style: mainTitleText,
                       ),
-                      Icon(Icons.more_vert, size: 28, color: primaryColor,),
+                      Icon(
+                        Icons.more_vert,
+                        size: 28,
+                        color: primaryColor,
+                      ),
                     ],
                   ),
                 ),
