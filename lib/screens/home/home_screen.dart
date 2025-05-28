@@ -1,6 +1,5 @@
 import 'package:dsdsoft_project/screens/order/orders_page.dart';
 import 'package:dsdsoft_project/screens/payment/payment_page.dart';
-import 'package:dsdsoft_project/screens/return/return_item_page.dart';
 import 'package:dsdsoft_project/screens/sync/sync_data_page.dart';
 import 'package:dsdsoft_project/screens/customer/customer_screen.dart';
 import 'package:dsdsoft_project/screens/item_sales/item_sales_screen.dart';
@@ -9,6 +8,8 @@ import 'package:dsdsoft_project/screens/sales_report/sales_report_screen.dart';
 import 'package:dsdsoft_project/screens/stock_report.dart/stock_report_screen.dart';
 import 'package:dsdsoft_project/theme/constants.dart';
 import 'package:flutter/material.dart';
+
+import '../return/return_page.dart';
 
 class HomeScreen extends StatefulWidget {
   const HomeScreen({super.key});
@@ -21,7 +22,7 @@ class _HomeScreenState extends State<HomeScreen> {
   final List _gridItems = [
     ['order.png', 'Order', OrdersPage()],
     ['payment1.png', 'Payment', PaymentPage()],
-    ['return2.png', 'Return', ReturnItemPage()],
+    ['return2.png', 'Return', ReturnPage()],
     ['product1.png', 'Product', ProductScreen()],
     ['customer1.png', 'Customer', CustomerScreen()],
     ['sync1.png', 'Sync', SyncDataPage()],
